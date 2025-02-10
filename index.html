@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Interactive Form Builder</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <h1>Interactive Form Builder</h1>
+      <div class="app-controls">
+        <button id="togglePreview">Preview Form</button>
+        <button id="exportJson">Export JSON</button>
+        <button id="resetForm">Reset Form</button>
+      </div>
+    </header>
+    <div class="main-content">
+      <div id="editMode">
+        <div class="component-palette" id="palette">
+          <h2>Components</h2>
+        </div>
+        <div class="canvas" id="canvas">
+          <h2>Form Canvas</h2>
+          <div class="canvas-dropzone" id="dropzone">
+            <div class="empty-canvas">Drag components here</div>
+          </div>
+        </div>
+      </div>
+      <div class="preview" id="preview" style="display: none;">
+        <h2>Form Preview</h2>
+        <form id="previewForm"></form>
+      </div>
+    </div>
+  </div>
+  
+  <div id="exportModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" id="closeModal">&times;</span>
+      <h2>Export Form Configuration</h2>
+      <textarea id="exportText" readonly></textarea>
+      <button id="copyJson">Copy to Clipboard</button>
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
