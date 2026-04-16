@@ -1,0 +1,215 @@
+body.theme-default {
+  --color-primary: #4F46E5;
+  --color-primary-hover: #4338CA;
+  --color-primary-light: #EEF2FF;
+  --color-surface: #FFFFFF;
+  --color-surface-alt: #F9FAFB;
+  --color-background: #F3F4F6;
+  --color-border: #E5E7EB;
+  --color-text-primary: #111827;
+  --color-text-secondary: #6B7280;
+  --color-text-tertiary: #9CA3AF;
+}
+
+body.theme-dark {
+  --color-primary: #818CF8;
+  --color-primary-hover: #A5B4FC;
+  --color-primary-light: rgba(129, 140, 248, 0.15);
+  --color-primary-dark: #6D28D9;
+  --color-surface: #1F2937;
+  --color-surface-alt: #111827;
+  --color-background: #111827;
+  --color-border: #374151;
+  --color-border-focus: #818CF8;
+  --color-text-primary: #F9FAFB;
+  --color-text-secondary: #9CA3AF;
+  --color-text-tertiary: #6B7280;
+  --color-overlay: rgba(0,0,0,0.65);
+}
+
+body.theme-dark .app-header {
+  background: var(--color-surface);
+  border-bottom-color: var(--color-border);
+}
+
+body.theme-dark .canvas {
+  background: var(--color-surface);
+}
+
+body.theme-dark .canvas-element {
+  background: var(--color-surface-alt);
+}
+
+body.theme-dark .palette-item__icon {
+  background: var(--color-surface-alt);
+  border-color: var(--color-border);
+}
+
+body.theme-dark .palette-item:hover .palette-item__icon {
+  background: var(--color-primary-light);
+}
+
+body.theme-dark input,
+body.theme-dark select,
+body.theme-dark textarea {
+  background: var(--color-surface-alt);
+  border-color: var(--color-border);
+  color: var(--color-text-primary);
+}
+
+body.theme-dark .modal__panel {
+  background: var(--color-surface);
+}
+
+body.theme-dark .canvas-element__id-badge {
+  background: var(--color-surface-alt);
+  border-color: var(--color-border);
+  color: var(--color-text-tertiary);
+}
+
+body.theme-dark .canvas-element__field-preview {
+  background: var(--color-surface-alt);
+  border-color: var(--color-border);
+}
+
+body.theme-dark .template-card {
+  border-color: var(--color-border);
+}
+
+body.theme-dark .template-card:hover {
+  border-color: var(--color-primary);
+}
+
+body.theme-dark .export-code-wrap {
+  border-color: var(--color-border);
+}
+
+body.theme-dark pre code.hljs { background: #0d1117 !important; }
+
+body.theme-minimal {
+  --color-primary: #111827;
+  --color-primary-hover: #374151;
+  --color-primary-light: #F9FAFB;
+  --color-primary-dark: #030712;
+  --color-color-text-on-primary: #FFFFFF;
+  --color-surface: #FFFFFF;
+  --color-surface-alt: #FAFAFA;
+  --color-background: #F5F5F5;
+  --color-border: #D1D5DB;
+  --color-border-focus: #111827;
+  --color-text-primary: #111827;
+  --color-text-secondary: #4B5563;
+  --color-text-tertiary: #9CA3AF;
+}
+
+body.theme-minimal .app-header { box-shadow: none; border-bottom: 2px solid #111; }
+body.theme-minimal .canvas { box-shadow: none; border: 1px solid var(--color-border); }
+body.theme-minimal .canvas-element { border-radius: 4px; }
+body.theme-minimal .btn--primary { background: #111; border-color: #111; border-radius: 2px; }
+body.theme-minimal .btn--primary:hover:not(:disabled) { background: #374151; border-color: #374151; }
+
+body.theme-corporate {
+  --color-primary: #0EA5E9;
+  --color-primary-hover: #0284C7;
+  --color-primary-light: #F0F9FF;
+  --color-primary-dark: #075985;
+  --color-success: #059669;
+  --color-surface: #FFFFFF;
+  --color-surface-alt: #F8FAFC;
+  --color-background: #F1F5F9;
+  --color-border: #CBD5E1;
+  --color-border-focus: #0EA5E9;
+  --color-text-primary: #0F172A;
+  --color-text-secondary: #475569;
+  --color-text-tertiary: #94A3B8;
+}
+
+body.theme-corporate .app-header {
+  background: #0F172A;
+  border-bottom-color: #1E293B;
+}
+
+body.theme-corporate .app-header__app-name,
+body.theme-corporate .app-header__form-title {
+  color: white;
+}
+
+body.theme-corporate .app-header__form-title:hover,
+body.theme-corporate .app-header__form-title:focus {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.3);
+}
+
+body.theme-corporate .btn--ghost {
+  color: rgba(255,255,255,0.7);
+}
+
+body.theme-corporate .btn--ghost:hover:not(:disabled) {
+  color: white;
+  background: rgba(255,255,255,0.1);
+}
+
+body.theme-corporate .app-header__autosave { color: rgba(255,255,255,0.5); }
+body.theme-corporate .btn-separator { background: rgba(255,255,255,0.2); }
+body.theme-corporate .changes-badge { background: var(--color-primary); }
+
+body.theme-corporate .app-statusbar {
+  background: #0F172A;
+  border-top-color: #1E293B;
+  color: rgba(255,255,255,0.5);
+}
+
+body.theme-corporate .app-statusbar__item { color: rgba(255,255,255,0.5); }
+body.theme-corporate .app-statusbar__sep { background: rgba(255,255,255,0.15); }
+
+body.high-contrast {
+  --color-primary: #0000EE;
+  --color-primary-hover: #0000CC;
+  --color-primary-light: #E8E8FF;
+  --color-success: #006400;
+  --color-danger: #8B0000;
+  --color-warning: #B8860B;
+  --color-border: #000000;
+  --color-border-focus: #0000EE;
+  --color-text-primary: #000000;
+  --color-text-secondary: #1A1A1A;
+  --color-text-tertiary: #333333;
+  --color-surface: #FFFFFF;
+  --color-background: #F0F0F0;
+}
+
+body.high-contrast .canvas-element { border: 2px solid #000; }
+body.high-contrast .palette-item { border: 1px solid transparent; }
+body.high-contrast .palette-item:hover { border-color: #000; }
+body.high-contrast .btn { border: 1.5px solid currentColor; }
+body.high-contrast .modal__panel { border: 2px solid #000; }
+body.high-contrast .palette-item__tooltip {
+  background: #000;
+  outline: 1px solid #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+  body:not([data-theme]) {
+    --color-primary: #818CF8;
+    --color-primary-hover: #A5B4FC;
+    --color-primary-light: rgba(129, 140, 248, 0.15);
+    --color-surface: #1F2937;
+    --color-surface-alt: #111827;
+    --color-background: #111827;
+    --color-border: #374151;
+    --color-text-primary: #F9FAFB;
+    --color-text-secondary: #9CA3AF;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.custom-theme-styles {
+  all: unset;
+}

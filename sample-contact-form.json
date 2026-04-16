@@ -1,0 +1,305 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://formforge.app/schemas/contact-us-demo",
+  "title": "Contact Us",
+  "description": "A comprehensive Contact Us form demonstrating all major FormForge field types.",
+  "type": "object",
+  "x-formforge": {
+    "version": "1.0",
+    "exportedAt": "2026-04-17T00:00:00.000Z",
+    "formConfig": {
+      "title": "Contact Us",
+      "description": "Have a question or feedback? We'd love to hear from you. Fill out the form below and we'll get back to you within 24 hours.",
+      "submitLabel": "Send Message",
+      "successMessage": "Thank you for reaching out! Our team will get back to you within 24 hours.",
+      "redirectUrl": "",
+      "validationMode": "onblur",
+      "multiStep": false,
+      "pages": [{ "id": "page-1", "title": "Page 1" }],
+      "progressBarStyle": "steps"
+    },
+    "elements": [
+      {
+        "id": "a1b2c3d4-0001-4000-a000-000000000001",
+        "type": "header",
+        "order": 0,
+        "props": {
+          "label": "Personal Information",
+          "placeholder": "",
+          "helperText": "",
+          "defaultValue": "",
+          "required": false,
+          "width": 100,
+          "hideLabel": false,
+          "cssClass": "",
+          "validation": {},
+          "options": []
+        },
+        "conditionalLogic": { "enabled": false, "rules": [], "logicOperator": "AND" },
+        "meta": { "createdAt": "2026-04-17T00:00:00.000Z", "updatedAt": "2026-04-17T00:00:00.000Z" }
+      },
+      {
+        "id": "a1b2c3d4-0002-4000-a000-000000000002",
+        "type": "text",
+        "order": 1,
+        "props": {
+          "label": "Full Name",
+          "placeholder": "e.g. Jane Smith",
+          "helperText": "Please enter your full legal name.",
+          "defaultValue": "",
+          "required": true,
+          "width": 100,
+          "hideLabel": false,
+          "cssClass": "",
+          "validation": {
+            "minLength": 2,
+            "maxLength": 80,
+            "customMessage": "Please enter your full name (at least 2 characters)."
+          },
+          "options": []
+        },
+        "conditionalLogic": { "enabled": false, "rules": [], "logicOperator": "AND" },
+        "meta": { "createdAt": "2026-04-17T00:00:00.000Z", "updatedAt": "2026-04-17T00:00:00.000Z" }
+      },
+      {
+        "id": "a1b2c3d4-0003-4000-a000-000000000003",
+        "type": "text",
+        "order": 2,
+        "props": {
+          "label": "Email Address",
+          "placeholder": "you@example.com",
+          "helperText": "We'll never share your email with anyone.",
+          "defaultValue": "",
+          "required": true,
+          "width": 100,
+          "hideLabel": false,
+          "cssClass": "",
+          "validation": {
+            "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+            "customMessage": "Please enter a valid email address."
+          },
+          "options": []
+        },
+        "conditionalLogic": { "enabled": false, "rules": [], "logicOperator": "AND" },
+        "meta": { "createdAt": "2026-04-17T00:00:00.000Z", "updatedAt": "2026-04-17T00:00:00.000Z" }
+      },
+      {
+        "id": "a1b2c3d4-0004-4000-a000-000000000004",
+        "type": "text",
+        "order": 3,
+        "props": {
+          "label": "Phone Number",
+          "placeholder": "+1 (555) 000-0000",
+          "helperText": "Optional. Include country code for international numbers.",
+          "defaultValue": "",
+          "required": false,
+          "width": 50,
+          "hideLabel": false,
+          "cssClass": "",
+          "validation": {
+            "pattern": "^[+]?[(]?[0-9]{1,4}[)]?[-\\s.]?[0-9]{1,4}[-\\s.]?[0-9]{1,9}$",
+            "customMessage": "Please enter a valid phone number."
+          },
+          "options": []
+        },
+        "conditionalLogic": { "enabled": false, "rules": [], "logicOperator": "AND" },
+        "meta": { "createdAt": "2026-04-17T00:00:00.000Z", "updatedAt": "2026-04-17T00:00:00.000Z" }
+      },
+      {
+        "id": "a1b2c3d4-0005-4000-a000-000000000005",
+        "type": "dropdown",
+        "order": 4,
+        "props": {
+          "label": "Inquiry Type",
+          "placeholder": "Select the nature of your inquiry",
+          "helperText": "Choose the category that best matches your question.",
+          "defaultValue": "",
+          "required": true,
+          "width": 50,
+          "hideLabel": false,
+          "cssClass": "",
+          "validation": {
+            "customMessage": "Please select an inquiry type."
+          },
+          "options": [
+            "General Question",
+            "Technical Support",
+            "Sales & Pricing",
+            "Partnership Opportunity",
+            "Press & Media",
+            "Other"
+          ]
+        },
+        "conditionalLogic": { "enabled": false, "rules": [], "logicOperator": "AND" },
+        "meta": { "createdAt": "2026-04-17T00:00:00.000Z", "updatedAt": "2026-04-17T00:00:00.000Z" }
+      },
+      {
+        "id": "a1b2c3d4-0006-4000-a000-000000000006",
+        "type": "divider",
+        "order": 5,
+        "props": {
+          "label": "Divider",
+          "placeholder": "",
+          "helperText": "",
+          "defaultValue": "",
+          "required": false,
+          "width": 100,
+          "hideLabel": false,
+          "cssClass": "",
+          "validation": {},
+          "options": []
+        },
+        "conditionalLogic": { "enabled": false, "rules": [], "logicOperator": "AND" },
+        "meta": { "createdAt": "2026-04-17T00:00:00.000Z", "updatedAt": "2026-04-17T00:00:00.000Z" }
+      },
+      {
+        "id": "a1b2c3d4-0007-4000-a000-000000000007",
+        "type": "header",
+        "order": 6,
+        "props": {
+          "label": "Your Message",
+          "placeholder": "",
+          "helperText": "",
+          "defaultValue": "",
+          "required": false,
+          "width": 100,
+          "hideLabel": false,
+          "cssClass": "",
+          "validation": {},
+          "options": []
+        },
+        "conditionalLogic": { "enabled": false, "rules": [], "logicOperator": "AND" },
+        "meta": { "createdAt": "2026-04-17T00:00:00.000Z", "updatedAt": "2026-04-17T00:00:00.000Z" }
+      },
+      {
+        "id": "a1b2c3d4-0008-4000-a000-000000000008",
+        "type": "text",
+        "order": 7,
+        "props": {
+          "label": "Subject",
+          "placeholder": "Brief summary of your inquiry",
+          "helperText": "",
+          "defaultValue": "",
+          "required": true,
+          "width": 100,
+          "hideLabel": false,
+          "cssClass": "",
+          "validation": {
+            "minLength": 5,
+            "maxLength": 120,
+            "customMessage": "Subject must be between 5 and 120 characters."
+          },
+          "options": []
+        },
+        "conditionalLogic": { "enabled": false, "rules": [], "logicOperator": "AND" },
+        "meta": { "createdAt": "2026-04-17T00:00:00.000Z", "updatedAt": "2026-04-17T00:00:00.000Z" }
+      },
+      {
+        "id": "a1b2c3d4-0009-4000-a000-000000000009",
+        "type": "textarea",
+        "order": 8,
+        "props": {
+          "label": "Message",
+          "placeholder": "Describe your question or feedback in detail...",
+          "helperText": "Please be as specific as possible to help us assist you faster.",
+          "defaultValue": "",
+          "required": true,
+          "width": 100,
+          "hideLabel": false,
+          "cssClass": "",
+          "validation": {
+            "minLength": 20,
+            "maxLength": 2000,
+            "customMessage": "Please provide a message of at least 20 characters."
+          },
+          "options": []
+        },
+        "conditionalLogic": { "enabled": false, "rules": [], "logicOperator": "AND" },
+        "meta": { "createdAt": "2026-04-17T00:00:00.000Z", "updatedAt": "2026-04-17T00:00:00.000Z" }
+      },
+      {
+        "id": "a1b2c3d4-0010-4000-a000-000000000010",
+        "type": "rating",
+        "order": 9,
+        "props": {
+          "label": "How would you rate your experience with our website?",
+          "placeholder": "",
+          "helperText": "1 star = Poor, 5 stars = Excellent",
+          "defaultValue": "",
+          "required": false,
+          "width": 100,
+          "hideLabel": false,
+          "cssClass": "",
+          "validation": { "max": 5 },
+          "options": []
+        },
+        "conditionalLogic": {
+          "enabled": true,
+          "rules": [
+            {
+              "field": "a1b2c3d4-0005-4000-a000-000000000005",
+              "operator": "not_equals",
+              "value": "Press & Media",
+              "action": "show"
+            }
+          ],
+          "logicOperator": "AND",
+          "action": "show"
+        },
+        "meta": { "createdAt": "2026-04-17T00:00:00.000Z", "updatedAt": "2026-04-17T00:00:00.000Z" }
+      },
+      {
+        "id": "a1b2c3d4-0011-4000-a000-000000000011",
+        "type": "file",
+        "order": 10,
+        "props": {
+          "label": "Attachment (optional)",
+          "placeholder": "",
+          "helperText": "Attach any relevant files (screenshots, documents). Max 10MB.",
+          "defaultValue": "",
+          "required": false,
+          "width": 100,
+          "hideLabel": false,
+          "cssClass": "",
+          "validation": {},
+          "options": []
+        },
+        "conditionalLogic": {
+          "enabled": true,
+          "rules": [
+            {
+              "field": "a1b2c3d4-0005-4000-a000-000000000005",
+              "operator": "equals",
+              "value": "Technical Support",
+              "action": "show"
+            }
+          ],
+          "logicOperator": "AND",
+          "action": "show"
+        },
+        "meta": { "createdAt": "2026-04-17T00:00:00.000Z", "updatedAt": "2026-04-17T00:00:00.000Z" }
+      },
+      {
+        "id": "a1b2c3d4-0012-4000-a000-000000000012",
+        "type": "checkbox",
+        "order": 11,
+        "props": {
+          "label": "I agree to the Privacy Policy and consent to FormForge storing my submitted information.",
+          "placeholder": "",
+          "helperText": "",
+          "defaultValue": false,
+          "required": true,
+          "width": 100,
+          "hideLabel": false,
+          "cssClass": "",
+          "validation": {
+            "customMessage": "You must agree to the Privacy Policy to submit this form."
+          },
+          "options": []
+        },
+        "conditionalLogic": { "enabled": false, "rules": [], "logicOperator": "AND" },
+        "meta": { "createdAt": "2026-04-17T00:00:00.000Z", "updatedAt": "2026-04-17T00:00:00.000Z" }
+      }
+    ]
+  }
+}

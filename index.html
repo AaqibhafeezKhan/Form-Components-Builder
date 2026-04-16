@@ -1,49 +1,321 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Interactive Form Builder</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FormForge Enterprise — A powerful drag-and-drop form builder for designing, configuring, previewing, and exporting complex forms." />
+  <title>FormForge Enterprise — Dynamic Form Builder</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles/base.css" />
+  <link rel="stylesheet" href="styles/layout.css" />
+  <link rel="stylesheet" href="styles/components.css" />
+  <link rel="stylesheet" href="styles/themes.css" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" />
 </head>
-<body>
-  <div class="app-container">
-    <header class="app-header">
-      <h1>Interactive Form Builder</h1>
-      <div class="app-controls">
-        <button id="togglePreview">Preview Form</button>
-        <button id="exportJson">Export JSON</button>
-        <button id="resetForm">Reset Form</button>
+<body class="theme-default" data-theme="default">
+
+  <header class="app-header" role="banner">
+    <div class="app-header__brand">
+      <div class="app-header__logo" aria-label="FormForge Enterprise logo">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <rect width="28" height="28" rx="6" fill="var(--color-primary)"/>
+          <path d="M7 8h14M7 14h10M7 20h12" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="21" cy="20" r="3" fill="var(--color-success)" stroke="white" stroke-width="1.5"/>
+        </svg>
       </div>
-    </header>
-    <div class="main-content">
-      <div id="editMode">
-        <div class="component-palette" id="palette">
-          <h2>Components</h2>
+      <span class="app-header__app-name">FormForge</span>
+      <span class="app-header__badge">Enterprise</span>
+    </div>
+
+    <div class="app-header__form-title-wrap">
+      <input
+        type="text"
+        id="form-title-input"
+        class="app-header__form-title"
+        value="Untitled Form"
+        aria-label="Form name"
+        maxlength="80"
+      />
+      <div class="app-header__autosave" id="autosave-indicator" aria-live="polite" aria-label="Autosave status">
+        <span class="autosave-dot"></span>
+        <span class="autosave-text">Saved</span>
+      </div>
+    </div>
+
+    <nav class="app-header__actions" role="toolbar" aria-label="Main toolbar">
+      <div class="app-header__changes-wrap">
+        <span class="changes-badge" id="changes-badge" aria-label="Unsaved changes count" hidden>0</span>
+      </div>
+      <button class="btn btn--ghost btn--icon-text" id="btn-undo" title="Undo (Ctrl+Z)" aria-label="Undo" disabled>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 14L4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg>
+        Undo
+      </button>
+      <button class="btn btn--ghost btn--icon-text" id="btn-redo" title="Redo (Ctrl+Y)" aria-label="Redo" disabled>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 14l5-5-5-5"/><path d="M20 9H9.5a5.5 5.5 0 0 0 0 11H13"/></svg>
+        Redo
+      </button>
+      <div class="btn-separator" aria-hidden="true"></div>
+      <button class="btn btn--ghost btn--icon-text" id="btn-templates" aria-label="Open template gallery">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Templates
+      </button>
+      <button class="btn btn--ghost btn--icon-text" id="btn-export" aria-label="Export form">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Export
+      </button>
+      <button class="btn btn--ghost btn--icon-text" id="btn-import" aria-label="Import form">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Import
+      </button>
+      <button class="btn btn--primary btn--icon-text" id="btn-preview" aria-label="Preview form">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        Preview
+      </button>
+      <button class="btn btn--ghost btn--icon" id="btn-settings" aria-label="Form settings" title="Form Settings">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+      <button class="btn btn--ghost btn--icon" id="btn-history" aria-label="Activity log" title="Activity Log">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </button>
+      <button class="btn btn--ghost btn--icon" id="btn-contrast" aria-label="Toggle high contrast mode" title="High Contrast">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2v20"/><path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor"/></svg>
+      </button>
+    </nav>
+  </header>
+
+  <main class="app-workspace" role="main">
+
+    <aside class="panel panel--palette" id="panel-palette" aria-label="Component palette">
+      <div class="panel__header">
+        <span class="panel__title">Components</span>
+        <button class="panel__collapse-btn" id="palette-collapse-btn" aria-label="Collapse palette panel" aria-expanded="true">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+      </div>
+      <div class="palette__search-wrap">
+        <svg class="palette__search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="search" id="palette-search" class="palette__search" placeholder="Search components..." aria-label="Search components" />
+      </div>
+      <div class="palette__groups" id="palette-groups" role="list" aria-label="Available form components">
+      </div>
+    </aside>
+
+    <div class="panel-gutter panel-gutter--left" id="gutter-left" aria-hidden="true" role="separator"></div>
+
+    <section class="panel panel--canvas" id="panel-canvas" aria-label="Form canvas">
+      <div class="canvas-toolbar" role="toolbar" aria-label="Canvas toolbar">
+        <div class="canvas-toolbar__left">
+          <button class="btn btn--ghost btn--sm" id="btn-zoom-out" aria-label="Zoom out" title="Zoom Out">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+          </button>
+          <span class="canvas-toolbar__zoom-label" id="zoom-label" aria-live="polite" aria-label="Current zoom level">100%</span>
+          <button class="btn btn--ghost btn--sm" id="btn-zoom-in" aria-label="Zoom in" title="Zoom In">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+          </button>
+          <button class="btn btn--ghost btn--sm" id="btn-zoom-reset" aria-label="Reset zoom to 100%" title="Reset Zoom">100%</button>
         </div>
-        <div class="canvas" id="canvas">
-          <h2>Form Canvas</h2>
-          <div class="canvas-dropzone" id="dropzone">
-            <div class="empty-canvas">Drag components here</div>
+        <div class="canvas-toolbar__center">
+          <span class="canvas-toolbar__page-label" id="page-indicator">Page 1 of 1</span>
+        </div>
+        <div class="canvas-toolbar__right">
+          <button class="btn btn--ghost btn--sm btn--icon-text" id="btn-select-all" aria-label="Select all elements">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+            Select All
+          </button>
+          <button class="btn btn--ghost btn--sm btn--icon-text btn--danger" id="btn-clear-canvas" aria-label="Clear all elements from canvas">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+            Clear
+          </button>
+        </div>
+      </div>
+
+      <div class="canvas-scroll-container" id="canvas-scroll-container">
+        <div class="canvas" id="canvas" role="list" aria-label="Form elements" aria-dropeffect="move">
+          <div class="canvas__empty-state" id="canvas-empty-state" aria-hidden="false">
+            <svg class="canvas__empty-svg" viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="40" y="20" width="160" height="140" rx="12" fill="var(--color-surface)" stroke="var(--color-border)" stroke-width="2"/>
+              <rect x="60" y="45" width="120" height="12" rx="4" fill="var(--color-border)"/>
+              <rect x="60" y="67" width="80" height="10" rx="4" fill="var(--color-border)" opacity="0.6"/>
+              <rect x="60" y="90" width="120" height="28" rx="6" fill="var(--color-background)"/>
+              <rect x="60" y="130" width="120" height="28" rx="6" fill="var(--color-background)"/>
+              <circle cx="120" cy="90" r="40" fill="var(--color-primary)" opacity="0.06"/>
+              <path d="M108 90 L120 78 L132 90 M120 78 L120 102" stroke="var(--color-primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
+            </svg>
+            <p class="canvas__empty-title">Drop components here</p>
+            <p class="canvas__empty-subtitle">Drag from the palette on the left, or click a component to add it</p>
           </div>
         </div>
       </div>
-      <div class="preview" id="preview" style="display: none;">
-        <h2>Form Preview</h2>
-        <form id="previewForm"></form>
+    </section>
+
+    <div class="panel-gutter panel-gutter--right" id="gutter-right" aria-hidden="true" role="separator"></div>
+
+    <aside class="panel panel--properties" id="panel-properties" aria-label="Properties panel">
+      <div class="panel__header">
+        <span class="panel__title" id="properties-panel-title">Properties</span>
+        <button class="panel__collapse-btn" id="properties-collapse-btn" aria-label="Collapse properties panel" aria-expanded="true">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+      <div id="properties-panel-content" class="properties-panel__content">
+        <div class="properties-panel__empty-state" id="properties-empty-state">
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" width="80" aria-hidden="true">
+            <circle cx="50" cy="50" r="40" fill="var(--color-primary)" opacity="0.07"/>
+            <rect x="30" y="35" width="40" height="8" rx="3" fill="var(--color-border)"/>
+            <rect x="30" y="50" width="28" height="8" rx="3" fill="var(--color-border)" opacity="0.6"/>
+            <circle cx="65" cy="54" r="7" fill="var(--color-primary)" opacity="0.15" stroke="var(--color-primary)" stroke-width="1.5"/>
+            <path d="M62 54 L64 56 L68 52" stroke="var(--color-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <p>Select an element on the canvas to edit its properties</p>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="app-statusbar" role="contentinfo" aria-label="Status bar">
+    <div class="app-statusbar__item" id="status-element-count" aria-live="polite">0 elements</div>
+    <div class="app-statusbar__sep" aria-hidden="true"></div>
+    <div class="app-statusbar__item" id="status-last-saved" aria-live="polite">Not saved yet</div>
+    <div class="app-statusbar__sep" aria-hidden="true"></div>
+    <div class="app-statusbar__item" id="status-zoom">Zoom: 100%</div>
+    <div class="app-statusbar__sep" aria-hidden="true"></div>
+    <div class="app-statusbar__item" id="status-selected">No element selected</div>
+    <div class="app-statusbar__spacer" aria-hidden="true"></div>
+    <div class="app-statusbar__item">FormForge Enterprise v1.0</div>
+  </footer>
+
+  <div id="modal-overlay" class="modal-overlay" role="none" aria-hidden="true"></div>
+
+  <div id="modal-settings" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-settings-title" hidden>
+    <div class="modal__panel modal__panel--lg">
+      <div class="modal__header">
+        <h2 class="modal__title" id="modal-settings-title">Form Settings</h2>
+        <button class="modal__close" id="modal-settings-close" aria-label="Close settings">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal__body" id="modal-settings-body"></div>
+    </div>
+  </div>
+
+  <div id="modal-preview" class="modal modal--fullscreen" role="dialog" aria-modal="true" aria-labelledby="modal-preview-title" hidden>
+    <div class="modal__panel modal__panel--fullscreen">
+      <div class="modal__header modal__header--preview">
+        <h2 class="modal__title" id="modal-preview-title">Form Preview</h2>
+        <div class="preview-toolbar" role="toolbar" aria-label="Preview toolbar">
+          <div class="preview-device-btns" role="group" aria-label="Device size">
+            <button class="btn btn--ghost btn--sm preview-device-btn active" data-device="desktop" aria-label="Desktop preview" aria-pressed="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              Desktop
+            </button>
+            <button class="btn btn--ghost btn--sm preview-device-btn" data-device="tablet" aria-label="Tablet preview" aria-pressed="false">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
+              Tablet
+            </button>
+            <button class="btn btn--ghost btn--sm preview-device-btn" data-device="mobile" aria-label="Mobile preview" aria-pressed="false">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
+              Mobile
+            </button>
+          </div>
+          <button class="btn btn--ghost btn--sm" id="btn-preview-autofill" aria-label="Auto-fill with test data">Test Data</button>
+          <button class="btn btn--ghost btn--sm" id="btn-preview-reset" aria-label="Reset preview form">Reset</button>
+          <button class="btn btn--ghost btn--sm modal__close" id="modal-preview-close" aria-label="Close preview">Close</button>
+        </div>
+      </div>
+      <div class="modal__body modal__body--preview">
+        <div class="preview-frame-wrap" id="preview-frame-wrap">
+          <div class="preview-frame" id="preview-frame" aria-live="polite"></div>
+        </div>
       </div>
     </div>
   </div>
-  
-  <div id="exportModal" class="modal">
-    <div class="modal-content">
-      <span class="close-modal" id="closeModal">&times;</span>
-      <h2>Export Form Configuration</h2>
-      <textarea id="exportText" readonly></textarea>
-      <button id="copyJson">Copy to Clipboard</button>
+
+  <div id="modal-export" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-export-title" hidden>
+    <div class="modal__panel modal__panel--lg">
+      <div class="modal__header">
+        <h2 class="modal__title" id="modal-export-title">Export Form</h2>
+        <button class="modal__close" id="modal-export-close" aria-label="Close export modal">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal__body" id="modal-export-body"></div>
     </div>
   </div>
-  
-  <script src="script.js"></script>
+
+  <div id="modal-import" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-import-title" hidden>
+    <div class="modal__panel">
+      <div class="modal__header">
+        <h2 class="modal__title" id="modal-import-title">Import Form</h2>
+        <button class="modal__close" id="modal-import-close" aria-label="Close import modal">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal__body" id="modal-import-body"></div>
+    </div>
+  </div>
+
+  <div id="modal-templates" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-templates-title" hidden>
+    <div class="modal__panel modal__panel--lg">
+      <div class="modal__header">
+        <h2 class="modal__title" id="modal-templates-title">Template Gallery</h2>
+        <button class="modal__close" id="modal-templates-close" aria-label="Close template gallery">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal__body" id="modal-templates-body"></div>
+    </div>
+  </div>
+
+  <div id="modal-history" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-history-title" hidden>
+    <div class="modal__panel">
+      <div class="modal__header">
+        <h2 class="modal__title" id="modal-history-title">Activity Log</h2>
+        <button class="modal__close" id="modal-history-close" aria-label="Close activity log">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal__body" id="modal-history-body"></div>
+    </div>
+  </div>
+
+  <div id="modal-confirm" class="modal" role="alertdialog" aria-modal="true" aria-labelledby="modal-confirm-title" aria-describedby="modal-confirm-message" hidden>
+    <div class="modal__panel modal__panel--sm">
+      <div class="modal__header">
+        <h2 class="modal__title" id="modal-confirm-title">Confirm</h2>
+      </div>
+      <div class="modal__body">
+        <p id="modal-confirm-message"></p>
+        <div class="modal__footer">
+          <button class="btn btn--ghost" id="modal-confirm-cancel">Cancel</button>
+          <button class="btn btn--danger" id="modal-confirm-ok">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div role="status" aria-live="polite" aria-atomic="true" class="sr-announcer" id="sr-announcer"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <script src="src/eventBus.js"></script>
+  <script src="src/state.js"></script>
+  <script src="src/utils/storage.js"></script>
+  <script src="src/utils/validation.js"></script>
+  <script src="src/utils/dragDrop.js"></script>
+  <script src="src/utils/export.js"></script>
+  <script src="src/reducer.js"></script>
+  <script src="src/components/palette.js"></script>
+  <script src="src/components/canvas.js"></script>
+  <script src="src/components/propertiesPanel.js"></script>
+  <script src="src/components/preview.js"></script>
+  <script src="src/components/toolbar.js"></script>
+  <script src="src/components/modals.js"></script>
+  <script src="src/main.js"></script>
 </body>
 </html>
